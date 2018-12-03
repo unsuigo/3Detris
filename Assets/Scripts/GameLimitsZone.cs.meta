@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: aecb01916ac1c9940a4407924c593a3d
+timeCreated: 1498574160
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - audMain: {fileID: 24300002, guid: 9924164a25bd4704fbfe6532a8059c1e, type: 2}
+  - audMusic: {fileID: 24300002, guid: 75db4834df5e57849b991fdfaabb12cc, type: 2}
+  - MainVolume: {instanceID: 0}
+  - MusicVolume: {instanceID: 0}
+  - score_text: {instanceID: 0}
+  - yourScoreIs: {instanceID: 0}
+  - oneLayerDoneSound: {fileID: 8300000, guid: 15acf31461ec48f49a688b4cf83aadc1, type: 3}
+  - twoLayersDoneSound: {fileID: 8300000, guid: 352423453ca6f914089432cd89bc67c1,
+      type: 3}
+  - threeLayersDoneSound: {fileID: 8300000, guid: dde41980894753d4d82fb114f6b78bd4,
+      type: 3}
+  - music: {fileID: 8300000, guid: c9b9e6676cb470149b538b208667ec65, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
