@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
 
 	public static bool gamePaused = false;
 	
-
+	public static int speed = 0;
 	//Score
 	public static int scoreOneLayer = 50;
 	public static int scoreTwoLayers = 150;
@@ -69,12 +69,12 @@ public class GameManager : MonoBehaviour {
 
 	public void GameOver (){
 		scoreGameOver = score;
-		cubesGameOver = cubes;
-		layersGameOver = layersTotal;
+		// cubesGameOver = cubes;
+		// layersGameOver = layersTotal;
 
 		score = 0;
-		cubes = 0;
-		layersTotal = 0;
+		// cubes = 0;
+		// layersTotal = 0;
 		FindObjectOfType<UIManager>().switchGameMode();
 		FindObjectOfType<GameOver>().OnGameOver();
 		// SceneManager.LoadScene("GameOver");
@@ -104,7 +104,8 @@ public class GameManager : MonoBehaviour {
 
 	public void GotOneLayer (){
 		score += scoreOneLayer;
-		Debug.Log("GotOneLayer  ?? " + scoreOneLayer + " and total " + score);
+		Debug.Log("GotOneLayer  ... " + scoreOneLayer + " and total " + score);
+		FindObjectOfType<UIManager>().CurrentTimeScore(scoreOneLayer);
 		FindObjectOfType<MyAudioManager>().PlayClip("LayerDone1");
 		
 	}
@@ -112,6 +113,7 @@ public class GameManager : MonoBehaviour {
 	public void GotTwoLayers (){
 		score += scoreTwoLayers;
 		Debug.Log("GotTwoLayers  ?? " + scoreTwoLayers + " and total " + score);
+		FindObjectOfType<UIManager>().CurrentTimeScore(scoreTwoLayers);
 		FindObjectOfType<MyAudioManager>().PlayClip("LayerDone2");
 		
 	}
@@ -119,6 +121,7 @@ public class GameManager : MonoBehaviour {
 	public void GotThreeLayers (){
 		score += scoreThreeLayers;
 		Debug.Log("GotThreeLayers  ?? " + scoreThreeLayers + " and total " + score);
+		FindObjectOfType<UIManager>().CurrentTimeScore(scoreThreeLayers);
 		FindObjectOfType<MyAudioManager>().PlayClip("LayerDone3");
 		
 	}

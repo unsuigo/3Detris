@@ -69,7 +69,11 @@ public class MoveDownForm : MonoBehaviour {
                     cubesInForm = transform.childCount;
                     transform.DetachChildren ();
                     FindObjectOfType<GameLimitsZone> ().DeleteLayer ();
+
+
                     FindObjectOfType<GameManager> ().UpdateLevelScore ();
+                    Debug.Log("Level Score updated");
+
                     CalculateScore ();
 
                     FindObjectOfType<GameManager> ().SpawnNextItem ();
@@ -105,6 +109,7 @@ public class MoveDownForm : MonoBehaviour {
 
         GameManager.score += itemScore * cubesInForm;
         Debug.Log ("SCORE to culculate   " + itemScore * cubesInForm);
+        FindObjectOfType<UIManager> ().CurrentTimeScore(itemScore * cubesInForm);
         FindObjectOfType<UIManager> ().UpdateUI ();
     }
 
@@ -112,7 +117,7 @@ public class MoveDownForm : MonoBehaviour {
         if (!GameManager.gamePaused) {
             // fallSpeed = GameLimitsZone.fall_speed;
             FindObjectOfType<GameManager> ().durationOneY = 0.01f;
-            FindObjectOfType<MoveDownForm> ().scoreDone = true;
+           scoreDone = true;
 
         }
     }

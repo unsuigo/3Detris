@@ -6,12 +6,12 @@ using UnityEngine.UI;
 public class GameOver:MonoBehaviour {
 	
 	static int scoreIs; 
-	static int cubesGot; 
-	static int layersDone; 
+	// static int cubesGot; 
+	// static int layersDone; 
 
 	static int bestScoreIs = 0; 
-	static int bestGotCubes = 0; 
-	static int bestLayersDone = 0; 
+	// static int bestGotCubes = 0; 
+	// static int bestLayersDone = 0; 
 
 	// public Text scoreIs_text;
 	// public Text gotCubes_text;
@@ -46,8 +46,8 @@ public class GameOver:MonoBehaviour {
 
 	public  void GameOverScore() {
 		scoreIs = GameManager.scoreGameOver; 
-		cubesGot = GameManager.cubesGameOver; 
-		layersDone = GameManager.layersGameOver; 
+		// cubesGot = GameManager.cubesGameOver; 
+		// layersDone = GameManager.layersGameOver; 
 
 		Load (); 
 //		bestScoreIs = PlayerPrefs.GetInt("bestScore");
@@ -67,14 +67,14 @@ public class GameOver:MonoBehaviour {
 
 	void Save () {
 		PlayerPrefs.SetInt ("bestScore", scoreIs); 
-		PlayerPrefs.SetInt ("bestGotCubes", cubesGot); 
-		PlayerPrefs.SetInt ("bestLayersDone", layersDone); 
+		// PlayerPrefs.SetInt ("bestGotCubes", cubesGot); 
+		// PlayerPrefs.SetInt ("bestLayersDone", layersDone); 
 	}
 
 	void Load () {
 		bestScoreIs = PlayerPrefs.GetInt("bestScore"); 
-		bestGotCubes = PlayerPrefs.GetInt ("bestGotCubes"); 
-		bestLayersDone = PlayerPrefs.GetInt ("bestLayersDone"); 
+		// bestGotCubes = PlayerPrefs.GetInt ("bestGotCubes"); 
+		// bestLayersDone = PlayerPrefs.GetInt ("bestLayersDone"); 
 	}
 
 	

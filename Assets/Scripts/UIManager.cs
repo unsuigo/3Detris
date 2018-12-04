@@ -8,6 +8,10 @@ public class UIManager : MonoBehaviour {
 	public GameObject layersPanel;
 	public Text score_text;
 
+	public Text curentTimeScore_text;
+
+	public Text speed_text;
+
 	public GameObject playPanel;
 	public GameObject gameOverPanel;
 
@@ -75,6 +79,20 @@ public class UIManager : MonoBehaviour {
 		}
 	}
 
+	public void CurrentTimeScore(int timeScore)
+	{
+		curentTimeScore_text.gameObject.SetActive(true);
+		 
+		curentTimeScore_text.text = timeScore.ToString ();
+
+		Invoke("curentScoreOff", 1);
+	}
+
+	void curentScoreOff()
+	{
+		curentTimeScore_text.gameObject.SetActive(false);
+	}
+
 	public void OnMusicBtn () {
 		if (!isMuted) {
 			FindObjectOfType<MyAudioManager> ().StopClip ("BackGround");
@@ -86,9 +104,6 @@ public class UIManager : MonoBehaviour {
 
 	}
 
-	public void OnMenuBtn () {
-
-	}
 
 	public void OnExitBtn () {
 		Application.Quit ();
