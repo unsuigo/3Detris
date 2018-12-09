@@ -60,9 +60,12 @@ public class UIManager : MonoBehaviour {
 
 	public void UpdateUI () {
 
-		Debug.Log ("Score is  " + GameManager.score.ToString ());
-		string scoreTxt = GameManager.score.ToString ();
-		score_text.text = scoreTxt;
+		Debug.Log ("Score is  " + GameManager.score.ToString () + "  speed is  " + GameManager.speed);
+		
+		score_text.text = GameManager.score.ToString ();
+		
+		speed_text.text = GameManager.speed.ToString ();
+
 		LayerPanelControll ();
 
 	}
@@ -70,7 +73,7 @@ public class UIManager : MonoBehaviour {
 	void LayerPanelControll () {
 		int layer = FindObjectOfType<GameLimitsZone> ().LastLayerHasItem ();
 		for (int i = 0; i < layersPanel.transform.childCount-1; i++) {
-			Debug.Log("Layer   ___ " + layer + " && i " + i);
+			// Debug.Log("Layer   ___ " + layer + " && i " + i);
 			if(i <= layer)
 			layersPanel.transform.GetChild(i).GetComponent<CanvasRenderer>().SetAlpha(1f);
 			else
@@ -79,6 +82,8 @@ public class UIManager : MonoBehaviour {
 		}
 	}
 
+
+	private int debugCurrentScoreCount = 0;
 	public void CurrentTimeScore(int timeScore)
 	{
 		curentTimeScore_text.gameObject.SetActive(true);
@@ -86,6 +91,8 @@ public class UIManager : MonoBehaviour {
 		curentTimeScore_text.text = timeScore.ToString ();
 
 		Invoke("curentScoreOff", 1);
+		debugCurrentScoreCount++;
+		Debug.Log("curentTimeScore_text is " + timeScore + "  count " +debugCurrentScoreCount);
 	}
 
 	void curentScoreOff()

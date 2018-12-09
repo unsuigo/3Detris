@@ -57,7 +57,7 @@ public class TetrisBehaviour : MonoBehaviour {
 					toRot = Quaternion.AngleAxis (90, Vector3.up) * transform.rotation;
 					else
 					toRot = Quaternion.AngleAxis (90, Vector3.back) * transform.rotation;
-					Debug.Log("toRot &  transform.rotation    " + toRot + " & " + transform.rotation);
+					// Debug.Log("toRot &  transform.rotation    " + toRot + " & " + transform.rotation);
 				}
 				else
 				{
@@ -65,7 +65,7 @@ public class TetrisBehaviour : MonoBehaviour {
 					toRot = Quaternion.AngleAxis (90, Vector3.down) * transform.rotation;
 					else
 					toRot = Quaternion.AngleAxis (90, Vector3.forward) * transform.rotation;
-					Debug.Log("toRot &  transform.rotation    " + toRot + " & " + transform.rotation);
+					// Debug.Log("toRot &  transform.rotation    " + toRot + " & " + transform.rotation);
 				}
 
 			}
@@ -77,13 +77,13 @@ public class TetrisBehaviour : MonoBehaviour {
 				{
 					if(jostickR.isPressed) return;
 					toRot = Quaternion.AngleAxis (90, Vector3.right) * transform.rotation;
-					Debug.Log("toRot &  transform.rotation    " + toRot + " & " + transform.rotation);
+					// Debug.Log("toRot &  transform.rotation    " + toRot + " & " + transform.rotation);
 				}
 				else
 				{
 					if(jostickR.isPressed) return;
 					toRot = Quaternion.AngleAxis (90, Vector3.left) * transform.rotation;
-					Debug.Log("toRot &  transform.rotation    " + toRot + " & " + transform.rotation);
+					// Debug.Log("toRot &  transform.rotation    " + toRot + " & " + transform.rotation);
 				}
 			}
 
@@ -114,7 +114,7 @@ public class TetrisBehaviour : MonoBehaviour {
 			jostickZ =  jostickR.VerticalRight();
 			Vector3 toPos = transform.position;
 
-			Debug.Log("Jostik  X & Y  " + jostickX + " & " + jostickZ);
+			// Debug.Log("Jostik  X & Y  " + jostickX + " & " + jostickZ);
 
 			if(Mathf.Abs(jostickX) < 0.61f && Mathf.Abs(jostickZ) < 0.61f)
 			return;

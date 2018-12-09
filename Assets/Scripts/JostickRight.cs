@@ -77,7 +77,7 @@ public class JostickRight : MonoBehaviour , IDragHandler, IPointerUpHandler, IPo
 
     public float HorizontalRight()
     {
-        print("HorizontalRight");
+        // print("HorizontalRight");
         if (inputVector.x != 0) return inputVector.x;
         else return Input.GetAxis("Horizontal");
 
@@ -86,7 +86,7 @@ public class JostickRight : MonoBehaviour , IDragHandler, IPointerUpHandler, IPo
     public float VerticalRight()
     {
 
-        print("VerticalRight");
+        // print("VerticalRight");
         if (inputVector.y != 0) return inputVector.y;
         else return Input.GetAxis("Vertical");
 

@@ -17,7 +17,7 @@ public class MoveDownForm : MonoBehaviour {
     void Start () {
         behaviour = GetComponent<TetrisBehaviour> ();
         //  manager = GetComponent<GameManager>();
-        landedCubes = GameObject.FindWithTag ("LandedParent");
+        // landedCubes = GameObject.FindWithTag ("LandedParent");
     }
 
     void Update () {
@@ -62,7 +62,8 @@ public class MoveDownForm : MonoBehaviour {
 
                 }
 
-                if (FindObjectOfType<UIManager> ().isGameMode) {
+                if (FindObjectOfType<UIManager> ().isGameMode) 
+                {
                     SetLandedMaterial ();
                    
 
@@ -70,13 +71,65 @@ public class MoveDownForm : MonoBehaviour {
                     transform.DetachChildren ();
                     FindObjectOfType<GameLimitsZone> ().DeleteLayer ();
 
-
-                    FindObjectOfType<GameManager> ().UpdateLevelScore ();
-                    Debug.Log("Level Score updated");
-
                     CalculateScore ();
 
-                    FindObjectOfType<GameManager> ().SpawnNextItem ();
+                    GameManager manager = FindObjectOfType<GameManager>();
+                    manager.UpdateLayerScore ();
+                     FindObjectOfType<UIManager> ().UpdateUI ();
+
+
+                    manager.SpawnNextItem ();
+
+                    if(GameManager.score < 300 )
+                    {
+                        GameManager.speed = 0;
+                        Debug.Log("SPEED  " + GameManager.speed);
+                    }
+                    else if(GameManager.score < 600 )
+                    {
+                        GameManager.speed = 1;
+                        Debug.Log("SPEED  " + GameManager.speed);
+                    }
+                    else if(GameManager.score < 1000 )
+                    {
+                        GameManager.speed = 2;
+                        Debug.Log("SPEED  " + GameManager.speed);
+                    }
+                    else if(GameManager.score < 1500 )
+                    {
+                        GameManager.speed = 3;
+                        Debug.Log("SPEED  " + GameManager.speed);
+                    }
+                    else if(GameManager.score < 2000 )
+                    {
+                        GameManager.speed = 6;
+                        Debug.Log("SPEED  " + GameManager.speed);
+                    }
+                    else if(GameManager.score < 3000 )
+                    {
+                        GameManager.speed = 7;
+                        Debug.Log("SPEED  " + GameManager.speed);
+                    }
+                    else if(GameManager.score < 4000 )
+                    {
+                        GameManager.speed = 8;
+                        Debug.Log("SPEED  " + GameManager.speed);
+                    }
+                    else if(GameManager.score < 5500 )
+                    {
+                        GameManager.speed = 9;
+                        Debug.Log("SPEED  " + GameManager.speed);
+                    }
+                    else if(GameManager.score < 7000 )
+                    {
+                        GameManager.speed = 10;
+                        Debug.Log("SPEED  " + GameManager.speed);
+                    }
+                    
+                        Debug.Log("Level Score updated");
+
+
+                    
 
                 }
 
@@ -110,7 +163,7 @@ public class MoveDownForm : MonoBehaviour {
         GameManager.score += itemScore * cubesInForm;
         Debug.Log ("SCORE to culculate   " + itemScore * cubesInForm);
         FindObjectOfType<UIManager> ().CurrentTimeScore(itemScore * cubesInForm);
-        FindObjectOfType<UIManager> ().UpdateUI ();
+       
     }
 
     public void OnButtonDown () {

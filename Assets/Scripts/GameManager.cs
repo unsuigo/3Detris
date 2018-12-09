@@ -46,8 +46,8 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	void Start () {
-		FindObjectOfType<UIManager>().UpdateUI();
-		startSpeed = durationOneY;
+		// FindObjectOfType<UIManager>().UpdateUI();
+		startSpeed = durationOneY-(speed /5);
 		SpawnNextItem (); 
 	}
 
@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour {
 
 		GameObject nextItem = Instantiate(GetRandomForm(forms), startFormPosition, Quaternion.identity); 
 		durationOneY = startSpeed;
+		durationOneY -=speed/5;
 		}
 	}
 
@@ -73,6 +74,7 @@ public class GameManager : MonoBehaviour {
 		// layersGameOver = layersTotal;
 
 		score = 0;
+		speed = 0;
 		// cubes = 0;
 		// layersTotal = 0;
 		FindObjectOfType<UIManager>().switchGameMode();
@@ -81,8 +83,9 @@ public class GameManager : MonoBehaviour {
 	}
 
 
-	public void UpdateLevelScore ()
+	public void UpdateLayerScore ()
 	{
+		Debug.Log("UpdateLevelScore   ?? " + layersAtOnes );	
 		if(layersAtOnes > 0)
 		{
 			if (layersAtOnes == 1) 
@@ -97,31 +100,32 @@ public class GameManager : MonoBehaviour {
 			{
 				GotThreeLayers ();
 			}
-  		FindObjectOfType<UIManager>().UpdateUI();
+  		// FindObjectOfType<UIManager>().UpdateUI();
 		Debug.Log("layersAtOnes   ?? " + layersAtOnes );	
 		}
 	}
 
-	public void GotOneLayer (){
+	private void GotOneLayer (){
+		FindObjectOfType<UIManager>().CurrentTimeScore(scoreOneLayer);
 		score += scoreOneLayer;
 		Debug.Log("GotOneLayer  ... " + scoreOneLayer + " and total " + score);
-		FindObjectOfType<UIManager>().CurrentTimeScore(scoreOneLayer);
 		FindObjectOfType<MyAudioManager>().PlayClip("LayerDone1");
+		
 		
 	}
 
-	public void GotTwoLayers (){
+	private void GotTwoLayers (){
+		FindObjectOfType<UIManager>().CurrentTimeScore(scoreTwoLayers);
 		score += scoreTwoLayers;
 		Debug.Log("GotTwoLayers  ?? " + scoreTwoLayers + " and total " + score);
-		FindObjectOfType<UIManager>().CurrentTimeScore(scoreTwoLayers);
 		FindObjectOfType<MyAudioManager>().PlayClip("LayerDone2");
 		
 	}
 
-	public void GotThreeLayers (){
+	private void GotThreeLayers (){
+		FindObjectOfType<UIManager>().CurrentTimeScore(scoreThreeLayers);
 		score += scoreThreeLayers;
 		Debug.Log("GotThreeLayers  ?? " + scoreThreeLayers + " and total " + score);
-		FindObjectOfType<UIManager>().CurrentTimeScore(scoreThreeLayers);
 		FindObjectOfType<MyAudioManager>().PlayClip("LayerDone3");
 		
 	}

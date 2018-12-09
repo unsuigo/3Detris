@@ -10,7 +10,7 @@ public class LandedGOControll : MonoBehaviour {
 
 	public JostickLeft jostickLandedGO;
 
-	private Rigidbody rigidbody;
+	private Rigidbody rb;
 
 
 
@@ -19,7 +19,7 @@ public class LandedGOControll : MonoBehaviour {
 	void Start () {
 		Debug.Log("Start jostickLandedGO " );
 		startPos = transform.position;
-		rigidbody = GetComponent<Rigidbody>();
+		rb = GetComponent<Rigidbody>();
 		// jostickLandedGO = FindObjectOfType<JostickLeft>();
 	Debug.Log("jostickLandedGO is ___ " + jostickLandedGO );
 	}
@@ -43,56 +43,14 @@ public class LandedGOControll : MonoBehaviour {
 			jostickX =  jostickLandedGO.HorizontalLeft();
 			jostickZ =  jostickLandedGO.VerticalLeft();
 
-			rigidbody.AddTorque(transform.up * -jostickX);
-			rigidbody.AddTorque(transform.right * jostickZ);
+			rb.AddTorque(transform.up * -jostickX);
+			rb.AddTorque(transform.right * jostickZ);
 			// Quaternion toRot = transform.rotation;
 
 			Debug.Log("jostickLandedGO  X & Y  " + jostickX + " & " + jostickZ);
 
-			// if(Mathf.Abs(jostickX) < 0.2 && Mathf.Abs(jostickZ) < 0.2)
-			// return;
-
-
-			// //Horizontal
-			// if(Mathf.Abs(jostickX) > Mathf.Abs(jostickZ) )
-			// {
-				//x
-					
-				
-				// if(jostickX > 0)
-				// {	
-					
-				// 	toRot = Quaternion.AngleAxis (90, Vector3.back) * transform.rotation;
-				// 	Debug.Log("Horizontal  toRot &  transform.rotation    " + toRot + " & " + transform.rotation);
-				// }
-				// else
-				// {
-					
-				// 	toRot = Quaternion.AngleAxis (90, Vector3.forward) * transform.rotation;
-				// 	Debug.Log("Horizontal  toRot &  transform.rotation    " + toRot + " & " + transform.rotation);
-				// }
-
-			// }
-			//Vertical
-			// else
-			// {
-			// 	//z
-			// 	if(jostickZ > 0)
-			// 	{
-					
-			// 		toRot = Quaternion.AngleAxis (90, Vector3.right) * transform.rotation;
-			// 		Debug.Log("Vertical  toRot &  transform.rotation    " + toRot + " & " + transform.rotation);
-			// 	}
-			// 	else
-			// 	{
-					
-			// 		toRot = Quaternion.AngleAxis (90, Vector3.left) * transform.rotation;
-			// 		Debug.Log("jostVerticalickLandedGO  toRot &  transform.rotation    " + toRot + " & " + transform.rotation);
-			// 	}
-			// }
-
-			// StartCoroutine(RotateLerp(transform.rotation, toRot));
-					FindObjectOfType<MyAudioManager>().PlayClip("Rotate");
+	
+			FindObjectOfType<MyAudioManager>().PlayClip("Rotate");
 			
 		}
 
