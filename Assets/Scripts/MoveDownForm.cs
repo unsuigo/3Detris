@@ -49,20 +49,20 @@ public class MoveDownForm : MonoBehaviour {
 
             }
 
-            //landed
+     //LANDED
             else {
                 Debug.Log ("Landed.....");
                 transform.position += new Vector3 (0, 1, 0);
                 FindObjectOfType<MyAudioManager> ().PlayClip ("Landed");
 
                 if (!FindObjectOfType<GameLimitsZone> ().CheckIsAboveZoneItems (transform)) {
-                    FindObjectOfType<GameManager> ().GameOver ();
+                    GameManager.Instance.GameOver ();
                     Debug.Log ("Destroing last Form at first.....");
                     Destroy (this.gameObject);
 
                 }
 
-                if (FindObjectOfType<UIManager> ().isGameMode) 
+                if (UIManager.Instance.isGameMode) 
                 {
                     SetLandedMaterial ();
                    
@@ -73,63 +73,14 @@ public class MoveDownForm : MonoBehaviour {
 
                     CalculateScore ();
 
-                    GameManager manager = FindObjectOfType<GameManager>();
-                    manager.UpdateLayerScore ();
-                     FindObjectOfType<UIManager> ().UpdateUI ();
-
-
-                    manager.SpawnNextItem ();
-
-                    if(GameManager.score < 300 )
-                    {
-                        GameManager.speed = 0;
-                        Debug.Log("SPEED  " + GameManager.speed);
-                    }
-                    else if(GameManager.score < 600 )
-                    {
-                        GameManager.speed = 1;
-                        Debug.Log("SPEED  " + GameManager.speed);
-                    }
-                    else if(GameManager.score < 1000 )
-                    {
-                        GameManager.speed = 2;
-                        Debug.Log("SPEED  " + GameManager.speed);
-                    }
-                    else if(GameManager.score < 1500 )
-                    {
-                        GameManager.speed = 3;
-                        Debug.Log("SPEED  " + GameManager.speed);
-                    }
-                    else if(GameManager.score < 2000 )
-                    {
-                        GameManager.speed = 6;
-                        Debug.Log("SPEED  " + GameManager.speed);
-                    }
-                    else if(GameManager.score < 3000 )
-                    {
-                        GameManager.speed = 7;
-                        Debug.Log("SPEED  " + GameManager.speed);
-                    }
-                    else if(GameManager.score < 4000 )
-                    {
-                        GameManager.speed = 8;
-                        Debug.Log("SPEED  " + GameManager.speed);
-                    }
-                    else if(GameManager.score < 5500 )
-                    {
-                        GameManager.speed = 9;
-                        Debug.Log("SPEED  " + GameManager.speed);
-                    }
-                    else if(GameManager.score < 7000 )
-                    {
-                        GameManager.speed = 10;
-                        Debug.Log("SPEED  " + GameManager.speed);
-                    }
                     
-                        Debug.Log("Level Score updated");
+                    GameManager.Instance.UpdateLayerScore ();
 
 
-                    
+                    // UIManager.Instance.UpdateUI ();
+
+
+                    GameManager.Instance.SpawnNextItem ();
 
                 }
 

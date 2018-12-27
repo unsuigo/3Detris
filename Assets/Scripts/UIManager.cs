@@ -6,11 +6,12 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour {
 
 	public GameObject layersPanel;
-	public Text score_text;
-
-	public Text curentTimeScore_text;
-
-	public Text speed_text;
+	[SerializeField]
+	private Text score_text;
+	[SerializeField]
+	private Text curentTimeScore_text;
+	[SerializeField]
+	private Text speed_text;
 
 	public GameObject playPanel;
 	public GameObject gameOverPanel;
@@ -18,17 +19,38 @@ public class UIManager : MonoBehaviour {
 	private bool isMuted = false;
 	public bool isGameMode = true;
 
-	public static UIManager instance;
+#region Singleton
+	private static UIManager instance;
+	public static UIManager Instance{
+		get {
+			if (instance == null) {
+				GameObject obj = GameObject.Find("UIManager"); 
+				if (obj != null) {
+					instance = obj.AddComponent < UIManager > (); 	
+				}
+
+				if (instance == null) {
+					if (obj == null)
+					obj = new GameObject(); 
+					obj.name = typeof(UIManager).Name;
+					
+					instance = obj.AddComponent < UIManager > (); 
+				}
+			}
+			return instance; 
+		}
+	}
+
 
 	void Awake () {
 		if (instance == null)
-			instance = this;
+			instance = this as UIManager;
 		else {
 			Destroy (gameObject);
-			return;
 		}
 
 	}
+#endregion 
 
 	public void switchGameMode () {
 		if (isGameMode) {
@@ -60,7 +82,7 @@ public class UIManager : MonoBehaviour {
 
 	public void UpdateUI () {
 
-		Debug.Log ("Score is  " + GameManager.score.ToString () + "  speed is  " + GameManager.speed);
+		// Debug.Log ("Score is  " + GameManager.score.ToString () + "  speed is  " + GameManager.speed);
 		
 		score_text.text = GameManager.score.ToString ();
 		
@@ -69,6 +91,11 @@ public class UIManager : MonoBehaviour {
 		LayerPanelControll ();
 
 	}
+
+	public void UpdateScore(){
+		score_text.text = GameManager.score.ToString ();
+	}
+
 
 	void LayerPanelControll () {
 		int layer = FindObjectOfType<GameLimitsZone> ().LastLayerHasItem ();
