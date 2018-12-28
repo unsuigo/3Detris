@@ -34,7 +34,7 @@ public class MoveDownForm : MonoBehaviour {
         //    Debug.Log("time....." + Time.time);
 
         // speed fall and landing
-        if (Time.time - lastTime >= FindObjectOfType<GameManager> ().durationOneY) {
+        if (Time.time - lastTime >= GameManager.Instance.durationOneY) {
 
             // Debug.Log("time...IN");
             transform.position += new Vector3 (0, -1, 0);
@@ -69,12 +69,12 @@ public class MoveDownForm : MonoBehaviour {
 
                     cubesInForm = transform.childCount;
                     transform.DetachChildren ();
-                    FindObjectOfType<GameLimitsZone> ().DeleteLayer ();
 
                     CalculateScore ();
-
+                    int layers = FindObjectOfType<GameLimitsZone> ().DeleteLayer ();
                     
-                    GameManager.Instance.UpdateLayerScore ();
+                    if(layers > 0)
+                    GameManager.Instance.UpdateLayerScore (layers);
 
 
                     // UIManager.Instance.UpdateUI ();
@@ -110,12 +110,13 @@ public class MoveDownForm : MonoBehaviour {
     private void CalculateScore () {
         GameManager.cubes += cubesInForm;
         Debug.Log ("cubes " + cubesInForm);
+        int currentScore = itemScore * cubesInForm;
+        GameManager.Instance.Score += currentScore;
+        GameManager.Instance.UpdateCurrentScore(currentScore);
+        Debug.Log ("SCORE to culculate   " + currentScore);
 
-        GameManager.score += itemScore * cubesInForm;
-        Debug.Log ("SCORE to culculate   " + itemScore * cubesInForm);
-        FindObjectOfType<UIManager> ().CurrentTimeScore(itemScore * cubesInForm);
-       
     }
+
 
     public void OnButtonDown () {
         if (!GameManager.gamePaused) {

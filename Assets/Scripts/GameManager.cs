@@ -44,6 +44,10 @@ public class GameManager : MonoBehaviour {
 	public delegate void OnScoreChanged (int score);
 	public event OnScoreChanged onScoreChanged;
 
+	public delegate void OnCurrentScoreChanged (int currentScore);
+    public event OnCurrentScoreChanged onCurrentScoreChanged;
+
+
 	#endregion
 
 	#region Singleton
@@ -112,7 +116,7 @@ public class GameManager : MonoBehaviour {
 		// SceneManager.LoadScene("GameOver");
 	}
 
-	public void UpdateLayerScore () {
+	public void UpdateLayerScore (int layersAtOnes) {
 		Debug.Log ("UpdateLevelScore   ?? " + layersAtOnes);
 		if (layersAtOnes > 0) {
 			if (layersAtOnes == 1) {
@@ -127,27 +131,35 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
+	public void UpdateCurrentScore(int currentScore){
+		if(onCurrentScoreChanged!=null)
+		onCurrentScoreChanged(currentScore);
+	}
+
 	private void GotOneLayer () {
-		FindObjectOfType<UIManager> ().CurrentTimeScore (scoreOneLayer);
-		score += scoreOneLayer;
+		// UIManager.Instance.CurrentTimeScore (scoreOneLayer);
+		onCurrentScoreChanged(scoreOneLayer);
+		Score += scoreOneLayer;
 		Debug.Log ("GotOneLayer  ... " + scoreOneLayer + " and total " + score);
-		FindObjectOfType<MyAudioManager> ().PlayClip ("LayerDone1");
+		MyAudioManager.instance.PlayClip("LayerDone1");
 
 	}
 
 	private void GotTwoLayers () {
-		FindObjectOfType<UIManager> ().CurrentTimeScore (scoreTwoLayers);
-		score += scoreTwoLayers;
+		// FindObjectOfType<UIManager> ().CurrentTimeScore (scoreTwoLayers);
+		Score += scoreTwoLayers;
+		onCurrentScoreChanged(scoreTwoLayers);
 		Debug.Log ("GotTwoLayers  ?? " + scoreTwoLayers + " and total " + score);
-		FindObjectOfType<MyAudioManager> ().PlayClip ("LayerDone2");
+		MyAudioManager.instance.PlayClip ("LayerDone2");
 
 	}
 
 	private void GotThreeLayers () {
-		FindObjectOfType<UIManager> ().CurrentTimeScore (scoreThreeLayers);
-		score += scoreThreeLayers;
+		// FindObjectOfType<UIManager> ().CurrentTimeScore (scoreThreeLayers);
+		Score += scoreThreeLayers;
+		onCurrentScoreChanged(scoreThreeLayers);
 		Debug.Log ("GotThreeLayers  ?? " + scoreThreeLayers + " and total " + score);
-		FindObjectOfType<MyAudioManager> ().PlayClip ("LayerDone3");
+		MyAudioManager.instance.PlayClip ("LayerDone3");
 
 	}
 

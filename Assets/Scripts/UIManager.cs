@@ -19,28 +19,27 @@ public class UIManager : MonoBehaviour {
 	private bool isMuted = false;
 	public bool isGameMode = true;
 
-#region Singleton
+	#region Singleton
 	private static UIManager instance;
-	public static UIManager Instance{
+	public static UIManager Instance {
 		get {
 			if (instance == null) {
-				GameObject obj = GameObject.Find("UIManager"); 
+				GameObject obj = GameObject.Find ("UIManager");
 				if (obj != null) {
-					instance = obj.AddComponent < UIManager > (); 	
+					instance = obj.AddComponent<UIManager> ();
 				}
 
 				if (instance == null) {
 					if (obj == null)
-					obj = new GameObject(); 
-					obj.name = typeof(UIManager).Name;
-					
-					instance = obj.AddComponent < UIManager > (); 
+						obj = new GameObject ();
+					obj.name = typeof (UIManager).Name;
+
+					instance = obj.AddComponent<UIManager> ();
 				}
 			}
-			return instance; 
+			return instance;
 		}
 	}
-
 
 	void Awake () {
 		if (instance == null)
@@ -50,7 +49,12 @@ public class UIManager : MonoBehaviour {
 		}
 
 	}
-#endregion 
+	#endregion 
+
+	void Start () {
+		GameManager.Instance.onScoreChanged += UpdateScore;
+		GameManager.Instance.onCurrentScoreChanged += CurrentTimeScore;
+	}
 
 	public void switchGameMode () {
 		if (isGameMode) {
@@ -83,48 +87,48 @@ public class UIManager : MonoBehaviour {
 	public void UpdateUI () {
 
 		// Debug.Log ("Score is  " + GameManager.score.ToString () + "  speed is  " + GameManager.speed);
-		
-		score_text.text = GameManager.score.ToString ();
-		
+
+		score_text.text = GameManager.Instance.Score.ToString ();
+
 		speed_text.text = GameManager.speed.ToString ();
 
 		LayerPanelControll ();
 
 	}
 
-	public void UpdateScore(){
-		score_text.text = GameManager.score.ToString ();
+	public void UpdateScore (int score) {
+		score_text.text = GameManager.Instance.Score.ToString ();
 	}
 
+	public void UpdateSpeed () {
+		speed_text.text = GameManager.speed.ToString ();
+	}
 
 	void LayerPanelControll () {
 		int layer = FindObjectOfType<GameLimitsZone> ().LastLayerHasItem ();
-		for (int i = 0; i < layersPanel.transform.childCount-1; i++) {
+		for (int i = 0; i < layersPanel.transform.childCount - 1; i++) {
 			// Debug.Log("Layer   ___ " + layer + " && i " + i);
-			if(i <= layer)
-			layersPanel.transform.GetChild(i).GetComponent<CanvasRenderer>().SetAlpha(1f);
+			if (i <= layer)
+				layersPanel.transform.GetChild (i).GetComponent<CanvasRenderer> ().SetAlpha (1f);
 			else
-			layersPanel.transform.GetChild(i).GetComponent<CanvasRenderer>().SetAlpha(0f);
+				layersPanel.transform.GetChild (i).GetComponent<CanvasRenderer> ().SetAlpha (0f);
 
 		}
 	}
 
+	// private int debugCurrentScoreCount = 0;
+	public void CurrentTimeScore (int timeScore) {
+		curentTimeScore_text.gameObject.SetActive (true);
 
-	private int debugCurrentScoreCount = 0;
-	public void CurrentTimeScore(int timeScore)
-	{
-		curentTimeScore_text.gameObject.SetActive(true);
-		 
 		curentTimeScore_text.text = timeScore.ToString ();
 
-		Invoke("curentScoreOff", 1);
-		debugCurrentScoreCount++;
-		Debug.Log("curentTimeScore_text is " + timeScore + "  count " +debugCurrentScoreCount);
+		Invoke ("curentScoreOff", 1);
+		// debugCurrentScoreCount++;
+		// Debug.Log("curentTimeScore_text is " + timeScore + "  count " +debugCurrentScoreCount);
 	}
 
-	void curentScoreOff()
-	{
-		curentTimeScore_text.gameObject.SetActive(false);
+	void curentScoreOff () {
+		curentTimeScore_text.gameObject.SetActive (false);
 	}
 
 	public void OnMusicBtn () {
@@ -137,7 +141,6 @@ public class UIManager : MonoBehaviour {
 		}
 
 	}
-
 
 	public void OnExitBtn () {
 		Application.Quit ();
@@ -155,7 +158,7 @@ public class UIManager : MonoBehaviour {
 		switchGameMode ();
 		score_text.text = "0";
 		FindObjectOfType<GameManager> ().PlayAgain ();
-		UpdateUI();
+		UpdateUI ();
 	}
 
 }

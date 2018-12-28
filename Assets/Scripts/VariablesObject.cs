@@ -14,8 +14,8 @@ public class VariablesObject : MonoBehaviour {
 	}
 
 	public void CheckGameOverScore(){
-		if(GameOverScore != GameManager.score){
-			GameOverScore = GameManager.score;
+		if(GameOverScore != GameManager.Instance.Score){
+			GameOverScore = GameManager.Instance.Score;
 			GameOverScoreTest = GameManager.scoreGameOver;
 
 			Debug.Log ("scoreGameOverVar" + GameOverScore);

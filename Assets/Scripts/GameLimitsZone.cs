@@ -42,7 +42,7 @@ public class GameLimitsZone:MonoBehaviour {
 			}
 			return layer;
 		}
-public void DeleteLayer () {
+public int DeleteLayer () {
 		int layers = 0; 
 		for (int y = 0; y < zoneHeight; y++) {
 			if (IsFullLayer(y)) {
@@ -51,7 +51,7 @@ public void DeleteLayer () {
 				MoveAllLayersDown (y + 1); --y; 
 			}
 		}
-		GameManager.layersAtOnes = layers; 
+		return layers; 
 	}
 
 	public void DeleteLayerItems (int y) {
