@@ -12,10 +12,13 @@ public class MoveDownForm : MonoBehaviour {
     public int itemScore = 12;
     private int cubesInForm;
     TetrisBehaviour behaviour;
+
+    public float fallOneLayerSpeed;
     // GameManager manager;
     // Use this for initialization
     void Start () {
         behaviour = GetComponent<TetrisBehaviour> ();
+       fallOneLayerSpeed = GameManager.Instance.durationOneY;
         //  manager = GetComponent<GameManager>();
         // landedCubes = GameObject.FindWithTag ("LandedParent");
     }
@@ -34,7 +37,7 @@ public class MoveDownForm : MonoBehaviour {
         //    Debug.Log("time....." + Time.time);
 
         // speed fall and landing
-        if (Time.time - lastTime >= GameManager.Instance.durationOneY) {
+        if (Time.time - lastTime >= fallOneLayerSpeed) {
 
             // Debug.Log("time...IN");
             transform.position += new Vector3 (0, -1, 0);

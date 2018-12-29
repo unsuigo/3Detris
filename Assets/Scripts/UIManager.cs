@@ -146,13 +146,7 @@ public class UIManager : MonoBehaviour {
 		Application.Quit ();
 	}
 
-	public void OnDoneBtn () {
-		if (!GameManager.gamePaused) {
-			// fallSpeed = GameLimitsZone.fall_speed;
-			FindObjectOfType<GameManager> ().durationOneY = 0.01f;
-			FindObjectOfType<MoveDownForm> ().scoreDone = true;
-		}
-	}
+	
 
 	public void OnPlayBtn () {
 		switchGameMode ();

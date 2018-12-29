@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject[] forms;
 	public Vector3 startFormPosition;
 	public float durationOneY;
-	private float startSpeed;
+	// private float startSpeed;
 
 	public static bool gamePaused = false;
 
@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour {
 		if (FindObjectOfType<UIManager> ().isGameMode == true) {
 
 			GameObject nextItem = Instantiate (GetRandomForm (forms), startFormPosition, Quaternion.identity);
-			durationOneY = startSpeed;
+			// durationOneY = startSpeed;
 			durationOneY -= speed / 5;
 		}
 	}
@@ -134,6 +134,14 @@ public class GameManager : MonoBehaviour {
 	public void UpdateCurrentScore(int currentScore){
 		if(onCurrentScoreChanged!=null)
 		onCurrentScoreChanged(currentScore);
+	}
+
+	public void OnDoneBtn () {
+		if (!gamePaused) {
+			
+			// FindObjectOfType<MoveDownForm> ().scoreDone = true;
+			FindObjectOfType<MoveDownForm> ().fallOneLayerSpeed = 0.02f;
+		}
 	}
 
 	private void GotOneLayer () {
