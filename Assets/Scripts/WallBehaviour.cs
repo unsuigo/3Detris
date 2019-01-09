@@ -20,8 +20,8 @@ public class WallBehaviour : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		newMat = Resources.Load ("Materials/Wall Material", typeof (Material)) as Material;
-		// newMat = wallMat;
+		// newMat = Resources.Load ("Materials/Wall Material", typeof (Material)) as Material;
+		newMat = wallMat;
 		GameObject wallFront = GameObject.Find ("TheWallFront");
 
 		foreach (Transform item in wallFront.transform) {
@@ -29,9 +29,9 @@ public class WallBehaviour : MonoBehaviour {
 
 			wallF[(int) pos.x, (int) pos.y] = item;
 
-			Renderer renderer = item.GetComponent<MeshRenderer> ();
+			// Renderer renderer = item.GetComponent<MeshRenderer> ();
 
-			renderer.material = newMat;
+			// renderer.material = newMat;
 		}
 
 		GameObject wallBack = GameObject.Find ("TheWallBack");
@@ -41,9 +41,9 @@ public class WallBehaviour : MonoBehaviour {
 
 			wallB[(int) pos.x, (int) pos.y] = item;
 
-			Renderer renderer = item.GetComponent<MeshRenderer> ();
-			//			newMat = Resources.Load ("Materials/Wall Material", typeof(Material)) as Material;
-			renderer.material = newMat;
+			// Renderer renderer = item.GetComponent<MeshRenderer> ();
+			// //			newMat = Resources.Load ("Materials/Wall Material", typeof(Material)) as Material;
+			// renderer.material = newMat;
 		}
 
 		GameObject wallLeft = GameObject.Find ("TheWallLeft");
@@ -53,9 +53,9 @@ public class WallBehaviour : MonoBehaviour {
 
 			wallL[(int) pos.z, (int) pos.y] = item;
 
-			Renderer renderer = item.GetComponent<MeshRenderer> ();
-			//			newMat = Resources.Load ("Materials/Wall Material", typeof(Material)) as Material;
-			renderer.material = newMat;
+			// Renderer renderer = item.GetComponent<MeshRenderer> ();
+			// //			newMat = Resources.Load ("Materials/Wall Material", typeof(Material)) as Material;
+			// renderer.material = newMat;
 		}
 
 		GameObject wallRight = GameObject.Find ("TheWallRight");
@@ -65,10 +65,10 @@ public class WallBehaviour : MonoBehaviour {
 
 			wallR[(int) pos.z, (int) pos.y] = item;
 
-			Renderer renderer = item.GetComponent<MeshRenderer> ();
+			// Renderer renderer = item.GetComponent<MeshRenderer> ();
 
-			//			newMat = Resources.Load ("Materials/Wall Material", typeof(Material)) as Material;
-			renderer.material = newMat;
+			// //			newMat = Resources.Load ("Materials/Wall Material", typeof(Material)) as Material;
+			// renderer.material = newMat;
 		}
 	}
 
@@ -83,12 +83,12 @@ public class WallBehaviour : MonoBehaviour {
 		Renderer rendererR = wallR[z, y].GetComponent<MeshRenderer> ();
 		Renderer rendererL = wallL[z, y].GetComponent<MeshRenderer> ();
 
-		newMat = Resources.Load ("Materials/Wall Material Shadow", typeof (Material)) as Material;
+		// newMat = Resources.Load ("Materials/Wall Material Shadow", typeof (Material)) as Material;
 
-		rendererF.material = newMat;
-		rendererB.material = newMat;
-		rendererR.material = newMat;
-		rendererL.material = newMat;
+		rendererF.material = shadowMat;
+		rendererB.material = shadowMat;
+		rendererR.material = shadowMat;
+		rendererL.material = shadowMat;
 
 	}
 	public void ResetWallMaterial () {
@@ -111,11 +111,11 @@ public class WallBehaviour : MonoBehaviour {
 		Renderer rendererR = wallR[z, y].GetComponent<MeshRenderer> ();
 		Renderer rendererL = wallL[z, y].GetComponent<MeshRenderer> ();
 
-		newMat = Resources.Load ("Materials/Wall Material", typeof (Material)) as Material;
-		rendererF.material = newMat;
-		rendererB.material = newMat;
-		rendererR.material = newMat;
-		rendererL.material = newMat;
+		// newMat = Resources.Load ("Materials/Wall Material", typeof (Material)) as Material;
+		rendererF.material = wallMat;
+		rendererB.material = wallMat;
+		rendererR.material = wallMat;
+		rendererL.material = wallMat;
 
 	}
 

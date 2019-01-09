@@ -57,17 +57,20 @@ public class UIManager : MonoBehaviour {
 	}
 
 	public void switchGameMode () {
+		print("in switch game mode");
 		if (isGameMode) {
 			playPanel.SetActive (false);
 			layersPanel.SetActive (false);
 			gameOverPanel.SetActive (true);
 			isGameMode = false;
+			print( "switch game mode to false");
 
 		} else {
 			playPanel.SetActive (true);
 			layersPanel.SetActive (true);
 			gameOverPanel.SetActive (false);
 			isGameMode = true;
+			print( "switch game mode to true");
 		}
 
 		Debug.Log ("Game Mode is ..... " + isGameMode);

@@ -90,8 +90,9 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void SpawnNextItem () {
+		print("spawn IN");
 		if (FindObjectOfType<UIManager> ().isGameMode == true) {
-
+print("isGameMode == true");
 			GameObject nextItem = Instantiate (GetRandomForm (forms), startFormPosition, Quaternion.identity);
 			// durationOneY = startSpeed;
 			durationOneY -= speed / 5;
@@ -172,18 +173,18 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void PlayAgain () {
-
+		print("Play Again");
 		landedCubesParent.transform.rotation = Quaternion.identity;
 		foreach (Transform go in landedCubesParent.transform) {
 			Destroy (go.gameObject);
 		}
 
 		playingZone.SetActive (true);
-
+		print("playingZone = true");
 		FindObjectOfType<WallBehaviour> ().ResetWallMaterial ();
 		FindObjectOfType<GameLimitsZone> ().ResetZone ();
 		SpawnNextItem ();
-
+		
 	}
 
 	public void UpdateSpeed () {
