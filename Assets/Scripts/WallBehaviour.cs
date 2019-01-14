@@ -74,9 +74,9 @@ public class WallBehaviour : MonoBehaviour {
 
 	public void Shadow (int x, int y, int z) {
 
-		cleanX = x;
-		cleanY = y;
-		cleanZ = z;
+		// cleanX = x;
+		// cleanY = y;
+		// cleanZ = z;
 
 		Renderer rendererF = wallF[x, y].GetComponent<MeshRenderer> ();
 		Renderer rendererB = wallB[x, y].GetComponent<MeshRenderer> ();
@@ -96,7 +96,7 @@ public class WallBehaviour : MonoBehaviour {
 			for (int x = 0; x < zoneWidth; ++x) {
 				for (int z = 0; z < zoneWidth; ++z) {
 
-					FindObjectOfType<WallBehaviour> ().CleanShadow ((int) x, (int) y, (int) z);
+					CleanShadow ((int) x, (int) y, (int) z);
 
 				}
 			}

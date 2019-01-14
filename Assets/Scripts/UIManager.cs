@@ -15,6 +15,7 @@ public class UIManager : MonoBehaviour {
 
 	public GameObject playPanel;
 	public GameObject gameOverPanel;
+	public GameObject quitPanel;
 
 	private bool isMuted = false;
 	public bool isGameMode = true;
@@ -54,23 +55,25 @@ public class UIManager : MonoBehaviour {
 	void Start () {
 		GameManager.Instance.onScoreChanged += UpdateScore;
 		GameManager.Instance.onCurrentScoreChanged += CurrentTimeScore;
+		LayerPanelControll ();
+
 	}
 
 	public void switchGameMode () {
-		print("in switch game mode");
+		print ("in switch game mode");
 		if (isGameMode) {
 			playPanel.SetActive (false);
 			layersPanel.SetActive (false);
 			gameOverPanel.SetActive (true);
 			isGameMode = false;
-			print( "switch game mode to false");
+			print ("switch game mode to false");
 
 		} else {
 			playPanel.SetActive (true);
 			layersPanel.SetActive (true);
 			gameOverPanel.SetActive (false);
 			isGameMode = true;
-			print( "switch game mode to true");
+			print ("switch game mode to true");
 		}
 
 		Debug.Log ("Game Mode is ..... " + isGameMode);
@@ -108,14 +111,17 @@ public class UIManager : MonoBehaviour {
 	}
 
 	void LayerPanelControll () {
+		// print ("LayerPanelControll______");
 		int layer = FindObjectOfType<GameLimitsZone> ().LastLayerHasItem ();
 		for (int i = 0; i < layersPanel.transform.childCount - 1; i++) {
 			// Debug.Log("Layer   ___ " + layer + " && i " + i);
-			if (i <= layer)
+			if (i <= layer) {
 				layersPanel.transform.GetChild (i).GetComponent<CanvasRenderer> ().SetAlpha (1f);
-			else
+				// print("___alpha 1");
+			} else {
 				layersPanel.transform.GetChild (i).GetComponent<CanvasRenderer> ().SetAlpha (0f);
-
+				// print("__alpha 0");
+			}
 		}
 	}
 
@@ -146,10 +152,26 @@ public class UIManager : MonoBehaviour {
 	}
 
 	public void OnExitBtn () {
+		quitPanel.SetActive (true);
+
+		//Pause
+		Time.timeScale = 0;
+		GameManager.gamePaused = true;
+		Debug.Log ("timer 0 ");
+	}
+
+	public void OnYesBtn () {
+		FindObjectOfType<GameOver>().Save();
 		Application.Quit ();
 	}
 
-	
+	public void OnNoBtn () {
+		quitPanel.SetActive (false);
+		//Pause
+		Time.timeScale = 1;
+		GameManager.gamePaused = false;
+		Debug.Log ("timer 0 ");
+	}
 
 	public void OnPlayBtn () {
 		switchGameMode ();

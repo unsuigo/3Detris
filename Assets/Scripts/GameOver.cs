@@ -38,8 +38,8 @@ public class GameOver:MonoBehaviour {
 		foreach (GameObject cube in leftCubes) {
 		cube.transform.parent = FindObjectOfType<GameManager>().landedCubesParent.transform; 
 		}
-		 FindObjectOfType<GameManager>().playingZone.SetActive(false);
-		FindObjectOfType < MyAudioManager > ().PlayClip("GameOver"); 
+		 	FindObjectOfType<GameManager>().playingZone.SetActive(false);
+			FindObjectOfType < MyAudioManager > ().PlayClip("GameOver"); 
 
 	}
 	
@@ -65,7 +65,7 @@ public class GameOver:MonoBehaviour {
 
 	}
 
-	void Save () {
+	public void Save () {
 		PlayerPrefs.SetInt ("bestScore", scoreIs); 
 		// PlayerPrefs.SetInt ("bestGotCubes", cubesGot); 
 		// PlayerPrefs.SetInt ("bestLayersDone", layersDone); 

@@ -91,7 +91,7 @@ public class TetrisBehaviour : MonoBehaviour {
 			{
 					StartCoroutine(RotateLerp(transform.rotation, toRot));
 					FindObjectOfType<MyAudioManager>().PlayClip("Rotate");
-					FindObjectOfType<GameLimitsZone> ().UpdateZone (transform);
+					
 			}
 
 			
@@ -153,8 +153,8 @@ public class TetrisBehaviour : MonoBehaviour {
 			if(CheckZoneForMove(toPos))
 			{
 					StartCoroutine(MoveLerp(transform.position, toPos));
+					// FindObjectOfType<GameLimitsZone> ().UpdateZone (transform);
 					FindObjectOfType<MyAudioManager>().PlayClip("Move");
-					FindObjectOfType<GameLimitsZone> ().UpdateZone (transform);
 			}
 
 			
@@ -171,6 +171,7 @@ public class TetrisBehaviour : MonoBehaviour {
 		}
 		transform.position = toB;
 		lerpingRJ = false;
+		FindObjectOfType<GameLimitsZone> ().UpdateZone (transform);
 			// Debug.Log("Lerp End " + transform.position);
 	}
 
@@ -184,6 +185,7 @@ public class TetrisBehaviour : MonoBehaviour {
 		}
 		transform.rotation = toB;
 		lerpingLJ = false;
+		FindObjectOfType<GameLimitsZone> ().UpdateZone (transform);
 			// Debug.Log("Lerp  Rotation End " + transform.rotation);
 	}
 
@@ -191,7 +193,7 @@ public class TetrisBehaviour : MonoBehaviour {
 
 	bool CheckZoneForMove(Vector3 newPos)
 	{
-		   Vector3 oldPos = transform.position;
+		Vector3 oldPos = transform.position;
 		transform.position = newPos;
 		if (CheckIsValidPosition ()){
 			transform.position = oldPos;
@@ -376,26 +378,26 @@ public class TetrisBehaviour : MonoBehaviour {
 
 
 		//speed controller
-		else if (Input.GetKeyDown (KeyCode.KeypadPlus)) {
-			//			GameLimitsZone.fall_speed -= 1f;
+		// else if (Input.GetKeyDown (KeyCode.KeypadPlus)) {
+		// 	//			GameLimitsZone.fall_speed -= 1f;
 
-		} else if (Input.GetKeyDown (KeyCode.KeypadMinus)) {
-			//			GameLimitsZone.fall_speed += 10f;
-		} 
+		// } else if (Input.GetKeyDown (KeyCode.KeypadMinus)) {
+		// 	//			GameLimitsZone.fall_speed += 10f;
+		// } 
 		
 		
-		else if (
-			//			Input.GetKeyDown (KeyCode.Space)
-			CnInputManager.GetButtonDown ("BtnDone")
-		) {
-			if (!isPauseOn) {
-				// fallSpeed = GameLimitsZone.fall_speed;
-				FindObjectOfType<GameManager>().durationOneY = 0.01f;
-				FindObjectOfType<MoveDownForm>().scoreDone = true;
+		// else if (
+		// 	//			Input.GetKeyDown (KeyCode.Space)
+		// 	CnInputManager.GetButtonDown ("BtnDone")
+		// ) {
+		// 	if (!isPauseOn) {
+		// 		// fallSpeed = GameLimitsZone.fall_speed;
+		// 		FindObjectOfType<GameManager>().durationOneY = 0.01f;
+		// 		FindObjectOfType<MoveDownForm>().scoreDone = true;
 
-			}
+		// 	}
 
-		} 
+		// } 
 
 	}
 

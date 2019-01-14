@@ -80,7 +80,7 @@ public class MoveDownForm : MonoBehaviour {
                     GameManager.Instance.UpdateLayerScore (layers);
 
 
-                    // UIManager.Instance.UpdateUI ();
+                    UIManager.Instance.UpdateUI ();
 
 
                     GameManager.Instance.SpawnNextItem ();

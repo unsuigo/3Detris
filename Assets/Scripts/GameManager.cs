@@ -90,13 +90,14 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void SpawnNextItem () {
-		print("spawn IN");
+		// print("spawn IN");
 		if (FindObjectOfType<UIManager> ().isGameMode == true) {
-print("isGameMode == true");
+			// print("isGameMode == true");
 			GameObject nextItem = Instantiate (GetRandomForm (forms), startFormPosition, Quaternion.identity);
 			// durationOneY = startSpeed;
 			durationOneY -= speed / 5;
 		}
+		UpdateSpeed ();
 	}
 
 	GameObject GetRandomForm (GameObject[] forms) {

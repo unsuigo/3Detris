@@ -17,11 +17,11 @@ public class LandedGOControll : MonoBehaviour {
 	private bool lerpingLJ = false;
 
 	void Start () {
-		Debug.Log("Start jostickLandedGO " );
+		// Debug.Log("Start jostickLandedGO " );
 		startPos = transform.position;
 		rb = GetComponent<Rigidbody>();
 		// jostickLandedGO = FindObjectOfType<JostickLeft>();
-	Debug.Log("jostickLandedGO is ___ " + jostickLandedGO );
+	// Debug.Log("jostickLandedGO is ___ " + jostickLandedGO );
 	}
 
 	void Update () {
@@ -47,7 +47,7 @@ public class LandedGOControll : MonoBehaviour {
 			rb.AddTorque(transform.right * jostickZ);
 			// Quaternion toRot = transform.rotation;
 
-			Debug.Log("jostickLandedGO  X & Y  " + jostickX + " & " + jostickZ);
+			// Debug.Log("jostickLandedGO  X & Y  " + jostickX + " & " + jostickZ);
 
 	
 			FindObjectOfType<MyAudioManager>().PlayClip("Rotate");
