@@ -122,6 +122,9 @@ public class GameLimitsZone : MonoBehaviour {
 	}
 
 	public void UpdateZone (Transform form) {
+		WallBehaviour wall = FindObjectOfType<WallBehaviour> ();
+		if(wall==null)
+		return;
 
 		for (int y = 0; y < zoneHeight; ++y) {
 			for (int x = 0; x < zoneWidth; ++x) {
@@ -130,7 +133,7 @@ public class GameLimitsZone : MonoBehaviour {
 					if (zone[x, y, z] != null) {
 
 						if (zone[x, y, z].parent == form) {
-							FindObjectOfType<WallBehaviour> ().CleanShadow ((int) x, (int) y, (int) z);
+							wall.CleanShadow ((int) x, (int) y, (int) z);
 							zone[x, y, z] = null;
 						}
 					}
@@ -143,7 +146,7 @@ public class GameLimitsZone : MonoBehaviour {
 			if (pos.y < zoneHeight) {
 				zone[(int) pos.x, (int) pos.y, (int) pos.z] = item;
 
-				FindObjectOfType<WallBehaviour> ().Shadow ((int) pos.x, (int) pos.y, (int) pos.z);
+				wall.Shadow ((int) pos.x, (int) pos.y, (int) pos.z);
 
 			}
 		}
@@ -153,7 +156,7 @@ public class GameLimitsZone : MonoBehaviour {
 		if (pos.y > zoneHeight + 1) {
 			return null;
 		} else {
-			//									Debug.Log ("GetTransformZonePosition   " +pos);
+			//	Debug.Log ("GetTransformZonePosition   " +pos);
 			return zone[(int) pos.x, (int) pos.y, (int) pos.z];
 
 		}
@@ -161,7 +164,11 @@ public class GameLimitsZone : MonoBehaviour {
 
 	public bool CheckIsInsideZone (Vector3 pos) {
 
-		return ((int) pos.x >= 0 && (int) pos.x < zoneWidth && (int) pos.z >= 0 && (int) pos.z < zoneDeep && (int) pos.y >= 0);
+		if ((int) pos.x >= 0 && (int) pos.x < zoneWidth && (int) pos.z >= 0 && (int) pos.z < zoneDeep && (int) pos.y >= 0)
+		return true;
+
+		print("OUT of Zone");
+		return false;
 	}
 
 	public Vector3 Round (Vector3 pos) {

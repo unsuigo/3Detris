@@ -4,28 +4,28 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
 	public GameObject landedCubesParent;
-	public GameObject playingZone;
+	public GameObject playingZonePrefab;
 	public GameObject[] forms;
 	public Vector3 startFormPosition;
 	public float durationOneY;
 	// private float startSpeed;
 
-	public static bool gamePaused = false;
+	public bool gamePaused = false;
 
-	public static int speed = 0;
+	public int speed = 0;
 	//Score
-	public static int scoreOneLayer = 50;
-	public static int scoreTwoLayers = 150;
-	public static int scoreThreeLayers = 400;
+	public int scoreOneLayer = 50;
+	public int scoreTwoLayers = 150;
+	public int scoreThreeLayers = 400;
 
 	// public static int score = 0;
-	public static int cubes = 0;
-	public static int layersTotal = 0;
-	public static int layersAtOnes = 0;
+	public int cubes = 0;
+	public int layersTotal = 0;
+	public int layersAtOnes = 0;
 
-	public static int scoreGameOver;
-	public static int cubesGameOver;
-	public static int layersGameOver;
+	public int scoreGameOver;
+	public int cubesGameOver;
+	public int layersGameOver;
 
 	#region  Observer
 	private int score = 0;
@@ -45,8 +45,10 @@ public class GameManager : MonoBehaviour {
 	public event OnScoreChanged onScoreChanged;
 
 	public delegate void OnCurrentScoreChanged (int currentScore);
-    public event OnCurrentScoreChanged onCurrentScoreChanged;
+	public event OnCurrentScoreChanged onCurrentScoreChanged;
 
+	public delegate void OnSpeedChanged (int speed);
+	public event OnSpeedChanged onSpeedChanged;
 
 	#endregion
 
@@ -84,8 +86,7 @@ public class GameManager : MonoBehaviour {
 	#endregion
 
 	void Start () {
-		// FindObjectOfType<UIManager>().UpdateUI();
-		// startSpeed = durationOneY - (speed / 5);
+		Instantiate (playingZonePrefab, new Vector3 (0, 0, 0), Quaternion.identity);
 		SpawnNextItem ();
 	}
 
@@ -133,32 +134,32 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	public void UpdateCurrentScore(int currentScore){
-		if(onCurrentScoreChanged!=null)
-		onCurrentScoreChanged(currentScore);
+	public void UpdateCurrentScore (int currentScore) {
+		if (onCurrentScoreChanged != null)
+			onCurrentScoreChanged (currentScore);
 	}
 
 	public void OnDoneBtn () {
 		if (!gamePaused) {
-			
-			// FindObjectOfType<MoveDownForm> ().scoreDone = true;
+
+			FindObjectOfType<MoveDownForm> ().scoreDone = true;
 			FindObjectOfType<MoveDownForm> ().fallOneLayerSpeed = 0.02f;
 		}
 	}
 
 	private void GotOneLayer () {
 		// UIManager.Instance.CurrentTimeScore (scoreOneLayer);
-		onCurrentScoreChanged(scoreOneLayer);
+		onCurrentScoreChanged (scoreOneLayer);
 		Score += scoreOneLayer;
 		Debug.Log ("GotOneLayer  ... " + scoreOneLayer + " and total " + score);
-		MyAudioManager.instance.PlayClip("LayerDone1");
+		MyAudioManager.instance.PlayClip ("LayerDone1");
 
 	}
 
 	private void GotTwoLayers () {
 		// FindObjectOfType<UIManager> ().CurrentTimeScore (scoreTwoLayers);
 		Score += scoreTwoLayers;
-		onCurrentScoreChanged(scoreTwoLayers);
+		onCurrentScoreChanged (scoreTwoLayers);
 		Debug.Log ("GotTwoLayers  ?? " + scoreTwoLayers + " and total " + score);
 		MyAudioManager.instance.PlayClip ("LayerDone2");
 
@@ -167,73 +168,110 @@ public class GameManager : MonoBehaviour {
 	private void GotThreeLayers () {
 		// FindObjectOfType<UIManager> ().CurrentTimeScore (scoreThreeLayers);
 		Score += scoreThreeLayers;
-		onCurrentScoreChanged(scoreThreeLayers);
+		onCurrentScoreChanged (scoreThreeLayers);
 		Debug.Log ("GotThreeLayers  ?? " + scoreThreeLayers + " and total " + score);
 		MyAudioManager.instance.PlayClip ("LayerDone3");
 
 	}
 
 	public void PlayAgain () {
-		print("Play Again");
+		print ("Play Again");
 		landedCubesParent.transform.rotation = Quaternion.identity;
+
 		foreach (Transform go in landedCubesParent.transform) {
 			Destroy (go.gameObject);
 		}
 
-		playingZone.SetActive (true);
-		print("playingZone = true");
-		FindObjectOfType<WallBehaviour> ().ResetWallMaterial ();
+		GameObject playZone = Instantiate (playingZonePrefab, new Vector3 (0, 0, 0), Quaternion.identity);
+		print ("playingZone instance");
+		// playZone.GetComponent<WallBehaviour> ().ResetWallMaterial ();
 		FindObjectOfType<GameLimitsZone> ().ResetZone ();
 		SpawnNextItem ();
-		
+
 	}
 
 	public void UpdateSpeed () {
 		if (Score < 300) {
-			if(speed < 0 )
-			speed = 0;
-			
+			if (speed < 0) {
+				speed = 0;
+				if (onSpeedChanged != null) {
+					onSpeedChanged (speed);
+				}
+			}
+
 		} else if (Score < 600) {
-			if(speed < 1 )
-			speed = 1;
-			
+			if (speed < 1) {
+				speed = 1;
+				if (onSpeedChanged != null) {
+					onSpeedChanged (speed);
+				}
+			}
 		} else if (Score < 1000) {
-			if(speed < 2 )
-			speed = 2;
-			
+			if (speed < 2) {
+				speed = 2;
+				if (onSpeedChanged != null) {
+					onSpeedChanged (speed);
+				}
+			}
 		} else if (Score < 1500) {
-			if(speed < 3 )
-			speed = 3;
-			
+			if (speed < 3) {
+				speed = 3;
+				if (onSpeedChanged != null) {
+					onSpeedChanged (speed);
+				}
+			}
 		} else if (Score < 2000) {
-			if(speed < 4 )
-			speed = 4;
-			
+			if (speed < 4) {
+				speed = 4;
+				if (onSpeedChanged != null) {
+					onSpeedChanged (speed);
+				}
+			}
 		} else if (Score < 3000) {
-			if(speed < 5 )
-			speed = 5;
-			
+			if (speed < 5) {
+				speed = 5;
+				if (onSpeedChanged != null) {
+					onSpeedChanged (speed);
+				}
+			}
 		} else if (Score < 4000) {
-			if(speed < 6 )
-			speed = 6;
-			
+			if (speed < 6) {
+				speed = 6;
+				if (onSpeedChanged != null) {
+					onSpeedChanged (speed);
+				}
+			}
 		} else if (Score < 5500) {
-			if(speed < 7 )
-			speed = 7;
-			
-		} else if (GameManager.Instance.Score < 7000) {
-			if(speed < 8 )
-			speed = 8;
+			if (speed < 7) {
+				speed = 7;
+				if (onSpeedChanged != null) {
+					onSpeedChanged (speed);
+				}
+			}
+		} else if (Score < 7000) {
+			if (speed < 8) {
+				speed = 8;
+				if (onSpeedChanged != null) {
+					onSpeedChanged (speed);
+				}
+			}
+
+		} else if (Score < 9000) {
+			if (speed < 9) {
+				speed = 9;
+				if (onSpeedChanged != null) {
+					onSpeedChanged (speed);
+				}
+			}
+		} else if (Score < 11000) {
+			if (speed < 10) {
+				speed = 10;
+				if (onSpeedChanged != null) {
+					onSpeedChanged (speed);
+				}
+			}
 		}
-		else if (GameManager.Instance.Score < 9000) {
-			if(speed < 9 )
-			speed = 9;
-		}
-		else if (GameManager.Instance.Score < 11000) {
-			if(speed < 10 )
-			speed = 10;
-		}
-		Debug.Log ("SPEED  " + speed);	
-		
+		Debug.Log ("SPEED  " + speed);
+
 	}
 }

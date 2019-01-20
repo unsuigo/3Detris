@@ -55,6 +55,7 @@ public class UIManager : MonoBehaviour {
 	void Start () {
 		GameManager.Instance.onScoreChanged += UpdateScore;
 		GameManager.Instance.onCurrentScoreChanged += CurrentTimeScore;
+		GameManager.Instance.onSpeedChanged += UpdateSpeed;
 		LayerPanelControll ();
 
 	}
@@ -79,13 +80,13 @@ public class UIManager : MonoBehaviour {
 		Debug.Log ("Game Mode is ..... " + isGameMode);
 	}
 	public void OnPauseBtn () {
-		if (GameManager.gamePaused) {
+		if (GameManager.Instance.gamePaused) {
 			Time.timeScale = 1;
 			Debug.Log ("timer 1 ");
-			GameManager.gamePaused = false;
+			GameManager.Instance.gamePaused = false;
 		} else {
 			Time.timeScale = 0;
-			GameManager.gamePaused = true;
+			GameManager.Instance.gamePaused = true;
 			Debug.Log ("timer 0 ");
 		}
 	}
@@ -94,20 +95,20 @@ public class UIManager : MonoBehaviour {
 
 		// Debug.Log ("Score is  " + GameManager.score.ToString () + "  speed is  " + GameManager.speed);
 
-		score_text.text = GameManager.Instance.Score.ToString ();
+		// score_text.text = GameManager.Instance.Score.ToString ();
 
-		speed_text.text = GameManager.speed.ToString ();
+		speed_text.text = GameManager.Instance.speed.ToString ();
 
 		LayerPanelControll ();
 
 	}
 
 	public void UpdateScore (int score) {
-		score_text.text = GameManager.Instance.Score.ToString ();
+		score_text.text = score.ToString ();
 	}
 
-	public void UpdateSpeed () {
-		speed_text.text = GameManager.speed.ToString ();
+	public void UpdateSpeed (int speed) {
+		speed_text.text = speed.ToString ();
 	}
 
 	void LayerPanelControll () {
@@ -156,12 +157,12 @@ public class UIManager : MonoBehaviour {
 
 		//Pause
 		Time.timeScale = 0;
-		GameManager.gamePaused = true;
-		Debug.Log ("timer 0 ");
+		GameManager.Instance.gamePaused = true;
+		// Debug.Log ("timer 0 ");
 	}
 
 	public void OnYesBtn () {
-		FindObjectOfType<GameOver>().Save();
+		FindObjectOfType<GameOver>().Save(GameManager.Instance.Score);
 		Application.Quit ();
 	}
 
@@ -169,14 +170,14 @@ public class UIManager : MonoBehaviour {
 		quitPanel.SetActive (false);
 		//Pause
 		Time.timeScale = 1;
-		GameManager.gamePaused = false;
-		Debug.Log ("timer 0 ");
+		GameManager.Instance.gamePaused = false;
+		// Debug.Log ("timer 0 ");
 	}
 
 	public void OnPlayBtn () {
 		switchGameMode ();
 		score_text.text = "0";
-		FindObjectOfType<GameManager> ().PlayAgain ();
+		GameManager.Instance.PlayAgain ();
 		UpdateUI ();
 	}
 

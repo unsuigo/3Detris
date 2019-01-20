@@ -9,7 +9,7 @@ public class WallBehaviour : MonoBehaviour {
 	public static int zoneWidth = 5;
 	public static int zoneHeight = 12;
 
-	public int cleanX, cleanY, cleanZ;
+	// public int cleanX, cleanY, cleanZ;
 
 	Material newMat;
 	public static Transform[, ] wallF = new Transform[zoneWidth, zoneHeight];
@@ -17,10 +17,9 @@ public class WallBehaviour : MonoBehaviour {
 	public static Transform[, ] wallL = new Transform[zoneWidth, zoneHeight];
 	public static Transform[, ] wallR = new Transform[zoneWidth, zoneHeight];
 
-	// Use this for initialization
+	
 	void Start () {
 
-		// newMat = Resources.Load ("Materials/Wall Material", typeof (Material)) as Material;
 		newMat = wallMat;
 		GameObject wallFront = GameObject.Find ("TheWallFront");
 
@@ -74,17 +73,13 @@ public class WallBehaviour : MonoBehaviour {
 
 	public void Shadow (int x, int y, int z) {
 
-		// cleanX = x;
-		// cleanY = y;
-		// cleanZ = z;
-
+		
 		Renderer rendererF = wallF[x, y].GetComponent<MeshRenderer> ();
 		Renderer rendererB = wallB[x, y].GetComponent<MeshRenderer> ();
 		Renderer rendererR = wallR[z, y].GetComponent<MeshRenderer> ();
 		Renderer rendererL = wallL[z, y].GetComponent<MeshRenderer> ();
 
-		// newMat = Resources.Load ("Materials/Wall Material Shadow", typeof (Material)) as Material;
-
+		
 		rendererF.material = shadowMat;
 		rendererB.material = shadowMat;
 		rendererR.material = shadowMat;
@@ -97,7 +92,6 @@ public class WallBehaviour : MonoBehaviour {
 				for (int z = 0; z < zoneWidth; ++z) {
 
 					CleanShadow ((int) x, (int) y, (int) z);
-
 				}
 			}
 		}
