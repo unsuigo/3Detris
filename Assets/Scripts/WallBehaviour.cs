@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Detris;
 using UnityEngine;
 
-public class WallBehaviour : MonoBehaviour {
+public class WallBehaviour : SingletonT<WallBehaviour> {
 
 	public Material wallMat;
 	public Material shadowMat;
@@ -24,7 +25,7 @@ public class WallBehaviour : MonoBehaviour {
 		GameObject wallFront = GameObject.Find ("TheWallFront");
 
 		foreach (Transform item in wallFront.transform) {
-			Vector3 pos = FindObjectOfType<GameLimitsZone> ().Round (item.position);
+			Vector3 pos = GameLimitsZone.Instance.Round (item.position);
 
 			wallF[(int) pos.x, (int) pos.y] = item;
 
@@ -36,7 +37,7 @@ public class WallBehaviour : MonoBehaviour {
 		GameObject wallBack = GameObject.Find ("TheWallBack");
 
 		foreach (Transform item in wallBack.transform) {
-			Vector3 pos = FindObjectOfType<GameLimitsZone> ().Round (item.position);
+			Vector3 pos = GameLimitsZone.Instance.Round (item.position);
 
 			wallB[(int) pos.x, (int) pos.y] = item;
 
@@ -48,7 +49,7 @@ public class WallBehaviour : MonoBehaviour {
 		GameObject wallLeft = GameObject.Find ("TheWallLeft");
 
 		foreach (Transform item in wallLeft.transform) {
-			Vector3 pos = FindObjectOfType<GameLimitsZone> ().Round (item.position);
+			Vector3 pos = GameLimitsZone.Instance.Round (item.position);
 
 			wallL[(int) pos.z, (int) pos.y] = item;
 
@@ -60,7 +61,7 @@ public class WallBehaviour : MonoBehaviour {
 		GameObject wallRight = GameObject.Find ("TheWallRight");
 
 		foreach (Transform item in wallRight.transform) {
-			Vector3 pos = FindObjectOfType<GameLimitsZone> ().Round (item.position);
+			Vector3 pos = GameLimitsZone.Instance.Round (item.position);
 
 			wallR[(int) pos.z, (int) pos.y] = item;
 

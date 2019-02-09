@@ -15,7 +15,7 @@ public class GameOver:MonoBehaviour {
 	
 	public	void OnGameOver () {
 
-		print("Game over");
+		// print("Game over");
 		
 		GameOverScore (); 
 		
@@ -24,7 +24,7 @@ public class GameOver:MonoBehaviour {
 		foreach (GameObject cube in leftCubes) {
 			cube.transform.parent = GameManager.Instance.landedCubesParent.transform; 
 		}
-			 print("zone destroyed");
+			//  print("zone destroyed");
 		 	Destroy(GameObject.FindGameObjectWithTag("Zone"));
 			 MyAudioManager.instance.PlayClip("GameOver"); 
 

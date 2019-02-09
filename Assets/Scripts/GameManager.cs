@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using Detris;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : SingletonT<GameManager> {
 
 	public GameObject landedCubesParent;
 	public GameObject playingZonePrefab;
@@ -27,7 +28,7 @@ public class GameManager : MonoBehaviour {
 	public int cubesGameOver;
 	public int layersGameOver;
 
-	#region  Observer
+#region  Observer
 	private int score = 0;
 	public int Score {
 		get {
@@ -50,40 +51,40 @@ public class GameManager : MonoBehaviour {
 	public delegate void OnSpeedChanged (int speed);
 	public event OnSpeedChanged onSpeedChanged;
 
-	#endregion
+#endregion
 
-	#region Singleton
-	private static GameManager instance;
-	public static GameManager Instance {
-		get {
-			if (instance == null) {
-				GameObject obj = GameObject.Find ("GameManager");
-				if (obj != null) {
-					instance = obj.AddComponent<GameManager> ();
-				}
+	// #region Singleton
+	// private static GameManager instance;
+	// public static GameManager Instance {
+	// 	get {
+	// 		if (instance == null) {
+	// 			GameObject obj = GameObject.Find ("GameManager");
+	// 			if (obj != null) {
+	// 				instance = obj.AddComponent<GameManager> ();
+	// 			}
 
-				if (instance == null) {
-					if (obj == null)
-						obj = new GameObject ();
-					obj.name = typeof (GameManager).Name;
+	// 			if (instance == null) {
+	// 				if (obj == null)
+	// 					obj = new GameObject ();
+	// 				obj.name = typeof (GameManager).Name;
 
-					instance = obj.AddComponent<GameManager> ();
-				}
-			}
-			return instance;
-		}
-	}
+	// 				instance = obj.AddComponent<GameManager> ();
+	// 			}
+	// 		}
+	// 		return instance;
+	// 	}
+	// }
 
-	void Awake () {
-		if (instance == null)
-			instance = this;
-		else {
-			Destroy (gameObject);
-			return;
-		}
+	// void Awake () {
+	// 	if (instance == null)
+	// 		instance = this;
+	// 	else {
+	// 		Destroy (gameObject);
+	// 		return;
+	// 	}
 
-	}
-	#endregion
+	// }
+	// #endregion
 
 	void Start () {
 		Instantiate (playingZonePrefab, new Vector3 (0, 0, 0), Quaternion.identity);
@@ -92,7 +93,7 @@ public class GameManager : MonoBehaviour {
 
 	public void SpawnNextItem () {
 		// print("spawn IN");
-		if (FindObjectOfType<UIManager> ().isGameMode == true) {
+		if (UIManager.Instance.isGameMode == true) {
 			// print("isGameMode == true");
 			GameObject nextItem = Instantiate (GetRandomForm (forms), startFormPosition, Quaternion.identity);
 			// durationOneY = startSpeed;
@@ -151,7 +152,7 @@ public class GameManager : MonoBehaviour {
 		// UIManager.Instance.CurrentTimeScore (scoreOneLayer);
 		onCurrentScoreChanged (scoreOneLayer);
 		Score += scoreOneLayer;
-		Debug.Log ("GotOneLayer  ... " + scoreOneLayer + " and total " + score);
+		// Debug.Log ("GotOneLayer  ... " + scoreOneLayer + " and total " + score);
 		MyAudioManager.instance.PlayClip ("LayerDone1");
 
 	}
@@ -160,7 +161,7 @@ public class GameManager : MonoBehaviour {
 		// FindObjectOfType<UIManager> ().CurrentTimeScore (scoreTwoLayers);
 		Score += scoreTwoLayers;
 		onCurrentScoreChanged (scoreTwoLayers);
-		Debug.Log ("GotTwoLayers  ?? " + scoreTwoLayers + " and total " + score);
+		// Debug.Log ("GotTwoLayers  ?? " + scoreTwoLayers + " and total " + score);
 		MyAudioManager.instance.PlayClip ("LayerDone2");
 
 	}
@@ -169,13 +170,13 @@ public class GameManager : MonoBehaviour {
 		// FindObjectOfType<UIManager> ().CurrentTimeScore (scoreThreeLayers);
 		Score += scoreThreeLayers;
 		onCurrentScoreChanged (scoreThreeLayers);
-		Debug.Log ("GotThreeLayers  ?? " + scoreThreeLayers + " and total " + score);
+		// Debug.Log ("GotThreeLayers  ?? " + scoreThreeLayers + " and total " + score);
 		MyAudioManager.instance.PlayClip ("LayerDone3");
 
 	}
 
 	public void PlayAgain () {
-		print ("Play Again");
+		// print ("Play Again");
 		landedCubesParent.transform.rotation = Quaternion.identity;
 
 		foreach (Transform go in landedCubesParent.transform) {
@@ -183,9 +184,9 @@ public class GameManager : MonoBehaviour {
 		}
 
 		GameObject playZone = Instantiate (playingZonePrefab, new Vector3 (0, 0, 0), Quaternion.identity);
-		print ("playingZone instance");
+		// print ("playingZone instance");
 		// playZone.GetComponent<WallBehaviour> ().ResetWallMaterial ();
-		FindObjectOfType<GameLimitsZone> ().ResetZone ();
+		GameLimitsZone.Instance.ResetZone ();
 		SpawnNextItem ();
 
 	}
@@ -271,7 +272,7 @@ public class GameManager : MonoBehaviour {
 				}
 			}
 		}
-		Debug.Log ("SPEED  " + speed);
+		// Debug.Log ("SPEED  " + speed);
 
 	}
 }

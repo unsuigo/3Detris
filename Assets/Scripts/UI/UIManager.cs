@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Detris;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour {
+public class UIManager : SingletonT<UIManager> {
 
 	public GameObject layersPanel;
 	[SerializeField]
@@ -20,37 +21,37 @@ public class UIManager : MonoBehaviour {
 	private bool isMuted = false;
 	public bool isGameMode = true;
 
-	#region Singleton
-	private static UIManager instance;
-	public static UIManager Instance {
-		get {
-			if (instance == null) {
-				GameObject obj = GameObject.Find ("UIManager");
-				if (obj != null) {
-					instance = obj.AddComponent<UIManager> ();
-				}
+	// #region Singleton
+	// private static UIManager instance;
+	// public static UIManager Instance {
+	// 	get {
+	// 		if (instance == null) {
+	// 			GameObject obj = GameObject.Find ("UIManager");
+	// 			if (obj != null) {
+	// 				instance = obj.AddComponent<UIManager> ();
+	// 			}
 
-				if (instance == null) {
-					if (obj == null)
-						obj = new GameObject ();
-					obj.name = typeof (UIManager).Name;
+	// 			if (instance == null) {
+	// 				if (obj == null)
+	// 					obj = new GameObject ();
+	// 				obj.name = typeof (UIManager).Name;
 
-					instance = obj.AddComponent<UIManager> ();
-				}
-			}
-			return instance;
-		}
-	}
+	// 				instance = obj.AddComponent<UIManager> ();
+	// 			}
+	// 		}
+	// 		return instance;
+	// 	}
+	// }
 
-	void Awake () {
-		if (instance == null)
-			instance = this as UIManager;
-		else {
-			Destroy (gameObject);
-		}
+	// void Awake () {
+	// 	if (instance == null)
+	// 		instance = this as UIManager;
+	// 	else {
+	// 		Destroy (gameObject);
+	// 	}
 
-	}
-	#endregion 
+	// }
+	// #endregion 
 
 	void Start () {
 		GameManager.Instance.onScoreChanged += UpdateScore;
@@ -78,6 +79,7 @@ public class UIManager : MonoBehaviour {
 		}
 
 		Debug.Log ("Game Mode is ..... " + isGameMode);
+		
 	}
 	public void OnPauseBtn () {
 		if (GameManager.Instance.gamePaused) {

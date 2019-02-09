@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Detris;
 using UnityEngine;
 
 // using UnityEngine.UI;
 // using UnityEngine.SceneManagement;
 
-public class GameLimitsZone : MonoBehaviour {
+public class GameLimitsZone : SingletonT<GameLimitsZone> {
 
 	private static int zoneWidth = 5;
 	private static int zoneDeep = 5;

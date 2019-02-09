@@ -1,25 +1,26 @@
 ﻿using System;
+using Detris;
 using UnityEngine;
 
 
-public class MyAudioManager : MonoBehaviour
+public class MyAudioManager : SingletonT<MyAudioManager>
 {
 
     public Sound[] sounds;
 
     //Singleton will avoid second audioManager if we will change the scene
-    public static MyAudioManager instance;
+    // public static MyAudioManager instance;
 
 
     void Awake()
     {
-        if (instance == null)
-            instance = this;
-        else
-        {
-            Destroy(gameObject); 
-            return;
-        }
+        // if (instance == null)
+        //     instance = this;
+        // else
+        // {
+        //     Destroy(gameObject); 
+        //     return;
+        // }
 
         // if will reload scene
         DontDestroyOnLoad(gameObject);

@@ -15,18 +15,17 @@ public class MoveDownForm : MonoBehaviour {
     GameLimitsZone zone;
 
     public float fallOneLayerSpeed;
-    // GameManager manager;
-    // Use this for initialization
+    
     void Start () {
         behaviour = GetComponent<TetrisBehaviour> ();
        fallOneLayerSpeed = GameManager.Instance.durationOneY;
-       zone = FindObjectOfType<GameLimitsZone> ();
+    //    zone = FindObjectOfType<GameLimitsZone> ();
         //  manager = GetComponent<GameManager>();
         // landedCubes = GameObject.FindWithTag ("LandedParent");
     }
 
     void Update () {
-        if (FindObjectOfType<UIManager> ().isGameMode == true)
+        if (UIManager.Instance.isGameMode == true)
             MoveDown ();
         else {
             // Debug.Log ("Destroing last Form.....");
@@ -54,13 +53,13 @@ public class MoveDownForm : MonoBehaviour {
 
             //LANDED
             else {
-                Debug.Log ("Landed.....");
+                // Debug.Log ("Landed.....");
                 transform.position += new Vector3 (0, 1, 0);
-                FindObjectOfType<MyAudioManager> ().PlayClip ("Landed");
+                MyAudioManager.Instance.PlayClip ("Landed");
 
                 if (!zone.CheckIsAboveZoneItems (transform)) {
                     GameManager.Instance.GameOver ();
-                    Debug.Log ("Destroing last Form at first.....");
+                    // Debug.Log ("Destroing last Form at first.....");
                     Destroy (this.gameObject);
 
                 }
@@ -69,23 +68,16 @@ public class MoveDownForm : MonoBehaviour {
                 {
                     SetLandedMaterial ();
                    
-
                     cubesInForm = transform.childCount;
                     transform.DetachChildren ();
-                    // Destroy(GameObject.FindGameObjectWithTag("Zone"));
-
+                    
                     CalculateScore ();
-                    int layers = FindObjectOfType<GameLimitsZone> ().DeleteLayer ();
+                    int layers = GameLimitsZone.Instance.DeleteLayer ();
                     
                     if(layers > 0)
                     GameManager.Instance.UpdateLayerScore (layers);
-
-
                     UIManager.Instance.UpdateUI ();
-
-
                     GameManager.Instance.SpawnNextItem ();
-
                 }
 
                 Destroy (this.gameObject);
@@ -99,7 +91,7 @@ public class MoveDownForm : MonoBehaviour {
 
     private void SetLandedMaterial () {
          foreach (Transform item in transform) {
-                        Vector3 pos = FindObjectOfType<GameLimitsZone> ().Round (item.position);
+                        Vector3 pos = GameLimitsZone.Instance.Round (item.position);
 
                         // set up material of layer to the child when it landed
                         Material newMat;
