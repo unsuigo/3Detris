@@ -12,7 +12,7 @@ public class MoveDownForm : MonoBehaviour {
     public int itemScore = 12;
     private int cubesInForm;
     TetrisBehaviour behaviour;
-    GameLimitsZone zone;
+    // GameLimitsZone zone;
 
     public float fallOneLayerSpeed;
     
@@ -43,7 +43,7 @@ public class MoveDownForm : MonoBehaviour {
 
             if (behaviour.CheckIsValidPosition ()) {
 
-                zone.UpdateZone (transform);
+                GameLimitsZone.Instance.UpdateZone (transform);
                 // Debug.Log ("Space UpdateZoneShort done");
 
                 if (itemScore > 0 && !scoreDone)
@@ -57,7 +57,7 @@ public class MoveDownForm : MonoBehaviour {
                 transform.position += new Vector3 (0, 1, 0);
                 MyAudioManager.Instance.PlayClip ("Landed");
 
-                if (!zone.CheckIsAboveZoneItems (transform)) {
+                if (!GameLimitsZone.Instance.CheckIsAboveZoneItems (transform)) {
                     GameManager.Instance.GameOver ();
                     // Debug.Log ("Destroing last Form at first.....");
                     Destroy (this.gameObject);

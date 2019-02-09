@@ -26,7 +26,7 @@ public class GameOver:MonoBehaviour {
 		}
 			//  print("zone destroyed");
 		 	Destroy(GameObject.FindGameObjectWithTag("Zone"));
-			 MyAudioManager.instance.PlayClip("GameOver"); 
+			 MyAudioManager.Instance.PlayClip("GameOver"); 
 
 	}
 	

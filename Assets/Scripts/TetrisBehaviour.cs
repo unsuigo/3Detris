@@ -172,7 +172,7 @@ public class TetrisBehaviour : MonoBehaviour {
 	bool CheckZoneForRotate (Quaternion newRot) {
 		Quaternion oldRot = transform.rotation;
 		transform.rotation = newRot;
-		if (CheckIsValidPosition ()) {
+		if (CheckIsValidPosition()) {
 			transform.rotation = oldRot;
 			return true;
 		} else
@@ -184,15 +184,7 @@ public class TetrisBehaviour : MonoBehaviour {
 
 
 
-	}
-
-	void CheckValidPosition()
-	{
-		
-		
-	}
-
-	public bool CheckIsValidPosition () {
+	public bool CheckIsValidPosition() {
 		
 
 		foreach (Transform item in transform) {

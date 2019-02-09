@@ -153,7 +153,7 @@ public class GameManager : SingletonT<GameManager> {
 		onCurrentScoreChanged (scoreOneLayer);
 		Score += scoreOneLayer;
 		// Debug.Log ("GotOneLayer  ... " + scoreOneLayer + " and total " + score);
-		MyAudioManager.instance.PlayClip ("LayerDone1");
+		MyAudioManager.Instance.PlayClip ("LayerDone1");
 
 	}
 
@@ -162,7 +162,7 @@ public class GameManager : SingletonT<GameManager> {
 		Score += scoreTwoLayers;
 		onCurrentScoreChanged (scoreTwoLayers);
 		// Debug.Log ("GotTwoLayers  ?? " + scoreTwoLayers + " and total " + score);
-		MyAudioManager.instance.PlayClip ("LayerDone2");
+		MyAudioManager.Instance.PlayClip ("LayerDone2");
 
 	}
 
@@ -171,7 +171,7 @@ public class GameManager : SingletonT<GameManager> {
 		Score += scoreThreeLayers;
 		onCurrentScoreChanged (scoreThreeLayers);
 		// Debug.Log ("GotThreeLayers  ?? " + scoreThreeLayers + " and total " + score);
-		MyAudioManager.instance.PlayClip ("LayerDone3");
+		MyAudioManager.Instance.PlayClip ("LayerDone3");
 
 	}
 
