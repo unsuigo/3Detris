@@ -4,44 +4,46 @@ using UnityEngine;
 
 public class MoveDownForm : MonoBehaviour {
 
-    private GameObject landedCubes;
-    // private float durationOneStep  = 3f;
+    // private GameObject landedCubes;
+  
     public bool scoreDone;
 
     public float lastTime = 0.0f;
     public int itemScore = 12;
     private int cubesInForm;
     TetrisBehaviour behaviour;
-    // GameManager manager;
-    // Use this for initialization
+    // GameLimitsZone zone;
+
+    public float fallOneLayerSpeed;
+    
     void Start () {
         behaviour = GetComponent<TetrisBehaviour> ();
+       fallOneLayerSpeed = GameManager.Instance.durationOneY;
+    //    zone = FindObjectOfType<GameLimitsZone> ();
         //  manager = GetComponent<GameManager>();
-        landedCubes = GameObject.FindWithTag ("LandedParent");
+        // landedCubes = GameObject.FindWithTag ("LandedParent");
     }
 
     void Update () {
-        if (FindObjectOfType<UIManager> ().isGameMode == true)
+        if (UIManager.Instance.isGameMode == true)
             MoveDown ();
         else {
-            Debug.Log ("Destroing last Form.....");
+            // Debug.Log ("Destroing last Form.....");
             Destroy (this.gameObject);
         }
     }
 
     void MoveDown () {
 
-        //    Debug.Log("time....." + Time.time);
-
         // speed fall and landing
-        if (Time.time - lastTime >= FindObjectOfType<GameManager> ().durationOneY) {
+        if (Time.time - lastTime >= fallOneLayerSpeed) {
 
             // Debug.Log("time...IN");
             transform.position += new Vector3 (0, -1, 0);
 
             if (behaviour.CheckIsValidPosition ()) {
 
-                FindObjectOfType<GameLimitsZone> ().UpdateZone (transform);
+                GameLimitsZone.Instance.UpdateZone (transform);
                 // Debug.Log ("Space UpdateZoneShort done");
 
                 if (itemScore > 0 && !scoreDone)
@@ -49,31 +51,33 @@ public class MoveDownForm : MonoBehaviour {
 
             }
 
-            //landed
+            //LANDED
             else {
-                Debug.Log ("Landed.....");
+                // Debug.Log ("Landed.....");
                 transform.position += new Vector3 (0, 1, 0);
-                FindObjectOfType<MyAudioManager> ().PlayClip ("Landed");
+                MyAudioManager.Instance.PlayClip ("Landed");
 
-                if (!FindObjectOfType<GameLimitsZone> ().CheckIsAboveZoneItems (transform)) {
-                    FindObjectOfType<GameManager> ().GameOver ();
-                    Debug.Log ("Destroing last Form at first.....");
+                if (!GameLimitsZone.Instance.CheckIsAboveZoneItems (transform)) {
+                    GameManager.Instance.GameOver ();
+                    // Debug.Log ("Destroing last Form at first.....");
                     Destroy (this.gameObject);
 
                 }
 
-                if (FindObjectOfType<UIManager> ().isGameMode) {
+                if (UIManager.Instance.isGameMode) 
+                {
                     SetLandedMaterial ();
                    
-
                     cubesInForm = transform.childCount;
                     transform.DetachChildren ();
-                    FindObjectOfType<GameLimitsZone> ().DeleteLayer ();
-                    FindObjectOfType<GameManager> ().UpdateLevelScore ();
+                    
                     CalculateScore ();
-
-                    FindObjectOfType<GameManager> ().SpawnNextItem ();
-
+                    int layers = GameLimitsZone.Instance.DeleteLayer ();
+                    
+                    if(layers > 0)
+                    GameManager.Instance.UpdateLayerScore (layers);
+                    UIManager.Instance.UpdateUI ();
+                    GameManager.Instance.SpawnNextItem ();
                 }
 
                 Destroy (this.gameObject);
@@ -87,7 +91,7 @@ public class MoveDownForm : MonoBehaviour {
 
     private void SetLandedMaterial () {
          foreach (Transform item in transform) {
-                        Vector3 pos = FindObjectOfType<GameLimitsZone> ().Round (item.position);
+                        Vector3 pos = GameLimitsZone.Instance.Round (item.position);
 
                         // set up material of layer to the child when it landed
                         Material newMat;
@@ -100,20 +104,14 @@ public class MoveDownForm : MonoBehaviour {
     }
     
     private void CalculateScore () {
-        GameManager.cubes += cubesInForm;
-        Debug.Log ("cubes " + cubesInForm);
+        GameManager.Instance.cubes += cubesInForm;
+        // Debug.Log ("cubes " + cubesInForm);
+        int currentScore = itemScore * cubesInForm;
+        GameManager.Instance.Score += currentScore;
+        GameManager.Instance.UpdateCurrentScore(currentScore);
+        // Debug.Log ("SCORE to culculate   " + currentScore);
 
-        GameManager.score += itemScore * cubesInForm;
-        Debug.Log ("SCORE to culculate   " + itemScore * cubesInForm);
-        FindObjectOfType<UIManager> ().UpdateUI ();
     }
 
-    public void OnButtonDown () {
-        if (!GameManager.gamePaused) {
-            // fallSpeed = GameLimitsZone.fall_speed;
-            FindObjectOfType<GameManager> ().durationOneY = 0.01f;
-            FindObjectOfType<MoveDownForm> ().scoreDone = true;
 
-        }
-    }
 }

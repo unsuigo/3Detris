@@ -6,7 +6,7 @@ public class SaveLoad : MonoBehaviour {
 	static int bestScore;
 
 	void Save () {
-		PlayerPrefs.SetInt ("score", GameManager.score);
+		PlayerPrefs.SetInt ("score", GameManager.Instance.Score);
 	}
 	
 	void Load () {
